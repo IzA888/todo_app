@@ -1,0 +1,27 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  database: my_todo_app_development
+  pool: 5
+  username: postgres
+  password: my_password
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  database: my_todo_app_test
+  pool: 5
+  username: postgres
+  password: my_password
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  host: my_production_db.example.com
+  database: my_todo_app_production
+  pool: 5
+  username: my_production_user
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+
