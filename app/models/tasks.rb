@@ -1,4 +1,5 @@
 class Tasks < ApplicationRecord
+    belongs_to :user
     scope :completed, -> {
         where{
             completed = True

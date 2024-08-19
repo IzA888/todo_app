@@ -16,4 +16,14 @@ Rails.application.routes.draw do
   patch '/tasks/:id', to: 'task#update'
   delete '/tasks/:id', to: 'task#destroy'
   delete '/tasks', to: 'task#destroy_all'
+
+  get '/user', to: 'user#index'
+  get '/user/new', to: 'user#new'
+  get '/user/:id', to: 'user#show'
+  post '/user', to: 'user#create'
+  get '/user/:id/edit', to: 'user#edit'
+  patch '/user/:id', to: 'user#update'
+  delete '/user/:id', to: 'user#destroy'
+  delete '/user', to: 'user#destroy_all'
+  put '/user/login', to: 'user#login'
 end

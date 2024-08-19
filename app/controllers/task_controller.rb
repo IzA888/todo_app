@@ -1,5 +1,8 @@
 class TaskController < ApplicationController
-    def index 
+    require 'simple_jwt_auth'
+    before_action :authenticate_request!
+
+    def index
         @tasks = Tasks.all
         render json: @tasks
     end
@@ -58,6 +61,20 @@ class TaskController < ApplicationController
     private
     def tasks_params
         params.require(:task).permit(:title, :completed ) 
+    end
+
+    def authenticate_request!
+        auth_header = request.headers['Authorization']
+
+        
+        if auth_header.present?
+            # Remove o prefixo "Bearer " e deixa apenas o token
+            token = auth_header.split(' ').last
+            # Agora você pode usar o token para autenticação
+            SimpleJwtAuth::TokenProvider.decode(token)
+          else
+            render json: { error: 'Missing token' }, status: :unauthorized
+          end
     end
 
 end

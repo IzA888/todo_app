@@ -1,0 +1,6 @@
+SimpleJwtAuth.configure do |config|
+  config.logger.level = Logger::DEBUG # default level is `info`
+  config.exp_seconds = 120 # default is 30 seconds
+  #config.issuer = 'MyAppName' # only needed for consumers
+  config.secrets_config = { 'todo_app' => 'qwerty' }
+end
