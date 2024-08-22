@@ -1,7 +1,7 @@
 # simple_jwt_auth/token_provider.rb
 module SimpleJwtAuth
     class TokenProvider
-      SECRET_KEY = Rails.application.secrets.secret_key_base.to_s
+      SECRET_KEY = Rails.application.credentials.secret_key_base.to_s
   
       def call(payload)
         JWT.encode(payload, SECRET_KEY)

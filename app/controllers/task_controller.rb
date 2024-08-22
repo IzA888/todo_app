@@ -16,21 +16,22 @@ class TaskController < ApplicationController
         if @tasks.save
             render json: @tasks, status: 200
         else
-            render json: @tasks.errors, status: :unprocessable_identity
+            render json: @tasks.errors, status: 422
         end
     end
 
     def update
         @tasks = Tasks.find(params[:id])
-        if @tasks.update(tasks_params)
+        task_params = params.require(:task).permit(:title, :completed)
+        if @tasks.update(task_params)
             render json: @tasks, status: 200
         else
-            render json: @tasks.errors, status: :unprocessable_identity
+            render json: @tasks.errors, status: 422
         end
     end
 
     def edit
-        @tasks = Tasks.find(params[:id])
+        @tasks = Tasks.find(params[:title])
         render json: @tasks
     end
 
@@ -44,7 +45,7 @@ class TaskController < ApplicationController
         if @tasks.destroy
             render json: @tasks, status: :delete
         else
-            render json: @tasks.errors, status: :unprocessable_identity
+            render json: @tasks.errors, status: 422
         end
     end
 
@@ -53,14 +54,14 @@ class TaskController < ApplicationController
         if @tasks.destroy_all
             render plain: "Deletado com sucesso", status: 200
         else 
-            render json: @tasks.errors, status: :unprocessable_identity
+            render json: @tasks.errors, status: 422
         end
     end
         
 
     private
     def tasks_params
-        params.require(:task).permit(:title, :completed ) 
+        params.require(:task).permit(:title) 
     end
 
     def authenticate_request!
@@ -73,7 +74,7 @@ class TaskController < ApplicationController
             # Agora você pode usar o token para autenticação
             SimpleJwtAuth::TokenProvider.decode(token)
           else
-            render json: { error: 'Missing token' }, status: :unauthorized
+            render json: { error: 'Missing token' }, status: 401
           end
     end
 

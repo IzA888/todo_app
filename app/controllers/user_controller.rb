@@ -54,7 +54,7 @@ class UserController < ApplicationController
         if @user.destroy_all
             render plain: "Deletado com sucesso", status: 200
         else 
-            render json: @user.errors, status: :unprocessable_identity
+            render json: @user.errors, status: 422
         end
     end
 
@@ -65,7 +65,7 @@ class UserController < ApplicationController
             token = SimpleJwtAuth::TokenProvider.new.call(user_id: user.id) 
             render json:  { token: token}, status: 200
         else
-            render json: { error: 'Invalid user' }, status: :unauthorized
+            render json: :error, status: :unauthorized
         end
     end
         
