@@ -72,6 +72,6 @@ Este é o backend da aplicação de lista de tarefas, desenvolvido com **Ruby on
   - **Cabeçalhos:** `Authorization: Bearer <token>`
     
  - **POST /user**
- - Cria um novo usuário.
- - **Corpo da Requisição:** { "name": "string", "username": "string", "password": "string" }
+    - Cria um novo usuário.
+    - **Corpo da Requisição:** { "name": "string", "username": "string", "password": "string" }
 
