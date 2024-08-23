@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   post '/tasks', to: 'task#create'
   get '/tasks/:id/edit', to: 'task#edit'
   patch '/tasks/:id', to: 'task#update'
-  delete '/tasks/:id', to: 'task#destroy'
-  delete '/tasks', to: 'task#destroy_all'
+  delete '/tasks/:id', to: 'task#delete'
+  delete '/tasks', to: 'task#delete_all'
 
   get '/user', to: 'user#index'
   get '/user/new', to: 'user#new'

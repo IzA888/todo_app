@@ -43,9 +43,9 @@ class UserController < ApplicationController
     def destroy
         @user = User.find(params[:id])
         if @user.destroy
-            render json: @user, status: :delete
+            render json: @user, status: 200
         else
-            render json: @user.errors, status: :unprocessable_identity
+            render json: @user.errors, status: 422
         end
     end
 
@@ -65,7 +65,7 @@ class UserController < ApplicationController
             token = SimpleJwtAuth::TokenProvider.new.call(user_id: user.id) 
             render json:  { token: token}, status: 200
         else
-            render json: :error, status: :unauthorized
+            render json: :error, status: 401
         end
     end
         

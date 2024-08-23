@@ -23,7 +23,7 @@ class TaskController < ApplicationController
     def update
         @tasks = Tasks.find(params[:id])
         
-        if @tasks.update(task_params)
+        if @tasks.update(tasks_params)
             render json: @tasks, status: 200
         else
             render json: @tasks.errors, status: 422
@@ -40,16 +40,16 @@ class TaskController < ApplicationController
         render json: @tasks
     end
 
-    def destroy
+    def delete
         @tasks = Tasks.find(params[:id])
         if @tasks.destroy
-            render json: @tasks, status: :delete
+            render json: @tasks, status: 200
         else
             render json: @tasks.errors, status: 422
         end
     end
 
-    def destroy_all
+    def delete_all
         @tasks = Tasks.all
         if @tasks.destroy_all
             render plain: "Deletado com sucesso", status: 200
