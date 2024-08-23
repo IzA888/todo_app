@@ -36,7 +36,8 @@ class UserController < ApplicationController
     end
 
     def show
-        @user = User.find(params[:id])
+        user = User.find_by(id: params[:id])
+
         render json: @user
     end
 
@@ -74,5 +75,18 @@ class UserController < ApplicationController
     def user_params
         params.require(:user).permit(:name, :username, :password) 
     end
+    
+    def authenticate_request!
+        auth_header = request.headers['Authorization']
 
+        
+        if auth_header.present?
+            # Remove o prefixo "Bearer " e deixa apenas o token
+            token = auth_header.split(' ').last
+            # Agora você pode usar o token para autenticação
+            SimpleJwtAuth::TokenProvider.decode(token)
+          else
+            render json: { error: 'Missing token' }, status: 401
+          end
+    end
 end
