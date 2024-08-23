@@ -12,7 +12,7 @@ class TaskController < ApplicationController
     end
 
     def create
-        @tasks = Tasks.new(tasks_params)
+        @tasks = Tasks.new(tasks_params.merge(completed: params[:task][:completed] || false))
         if @tasks.save
             render json: @tasks, status: 200
         else
@@ -22,7 +22,7 @@ class TaskController < ApplicationController
 
     def update
         @tasks = Tasks.find(params[:id])
-        task_params = params.require(:task).permit(:title, :completed)
+        
         if @tasks.update(task_params)
             render json: @tasks, status: 200
         else
@@ -61,7 +61,7 @@ class TaskController < ApplicationController
 
     private
     def tasks_params
-        params.require(:task).permit(:title) 
+        params.require(:task).permit(:title, :completed) 
     end
 
     def authenticate_request!

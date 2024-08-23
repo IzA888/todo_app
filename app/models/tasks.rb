@@ -1,14 +1,6 @@
 class Tasks < ApplicationRecord
-    belongs_to :user
-    scope :completed, -> {
-        where{
-            completed = True
-        }
-    }
 
-    scope :todo, -> {
-        where{
-            completed = False
-        }
-    }
+    attribute :completed, :boolean, default: false
+
+    validates :title, presence: true
 end
