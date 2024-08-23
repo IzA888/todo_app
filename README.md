@@ -17,7 +17,7 @@ Este é o backend da aplicação de lista de tarefas, desenvolvido com **Ruby on
 1. **Clone o repositório:**
 
    ```bash
-   git clone [https://github.com/IzA888/todo_app.git]
+   git clone https://github.com/IzA888/todo_app.git
    cd <todo_app>
    ```
 
