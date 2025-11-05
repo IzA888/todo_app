@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::API
+    # proteção CSRF
+    include ActionController::RequestForgeryProtection
+    protect_from_forgery with: :exception
 
-    before_action :authenticate_request!, except: [:login, :create]
+    include SessionsHelper
+
+    before_action :authenticate_request!, except: [:new, :login, :create]
 
     def correct_user?
         @user = User.find(params[:id])
