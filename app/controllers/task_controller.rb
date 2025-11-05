@@ -1,6 +1,5 @@
 class TaskController < ApplicationController
     require 'simple_jwt_auth'
-    before_action :authenticate_request!
 
     def index
         @tasks = Tasks.all
@@ -14,7 +13,7 @@ class TaskController < ApplicationController
     def create
         @tasks = Tasks.new(tasks_params.merge(completed: params[:task][:completed] || false))
         if @tasks.save
-            render json: @tasks, status: 200
+            render json: @tasks, status: 201
         else
             render json: @tasks.errors, status: 422
         end

@@ -1,5 +1,5 @@
 class UserController < ApplicationController
-    skip_before_action :authenticate_request!, only: [:login, :create]
+    before_action :correct_user?, only: [:edit, :upate, :destroy]
     require 'simple_jwt_auth'
     
 
@@ -15,9 +15,9 @@ class UserController < ApplicationController
     def create
         @user = User.new(user_params)
         if @user.save
-            render json: @user, status: 200
+            render json: @user, status: 201
         else
-            render json: @user.errors, status: :unprocessable_identity
+            render json: @user.errors, status: :unprocessable_entity
         end
     end
 
@@ -26,7 +26,7 @@ class UserController < ApplicationController
         if @user.update(user_params)
             render json: @user, status: 200
         else
-            render json: @user.errors, status: :unprocessable_identity
+            render json: @user.errors, status: :unprocessable_entity
         end
     end
 
